@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -17,26 +22,37 @@
         />
         <button id="searchButton"><img src="images/search.png" /></button>
       </div>
+      <div class="error">
+        <p>Invalid city name</p>
+      </div>
       <div class="weather">
-      
-        <div class="weather-icon"> <img src="images/clear.png" /></div>
-          <p class="weather-stat"></p>
+        <div class="weather-icon"><img src="images/clear.png" /></div>
 
         <h1 class="temp"></h1>
         <h2 class="city"></h2>
         <div class="details">
-          <div class="col">
-            <img src="images/humidity.png" />
+          <div class="col col-humidity">
+             <p class="col-text">Humidity</p>
+            <i class="fa-solid fa-droplet"></i>
             <div>
-              <p class="humidity"></p>
-              <p>Humidity</p>
+              <p class="humidity">_ _ _ %</p>
+             
             </div>
           </div>
-          <div class="col">
-            <img src="images/wind.png" />
+          <div class="col col-wind">
+              <p class="col-text">Wind</p>
+            <i class="fa-solid fa-wind"></i>
             <div>
-              <p class="wind">15 km/h</p>
-              <p>Wind Speed</p>
+              <p class="wind">_ _ km/h</p>
+            
+            </div>
+          </div>
+          <div class="col col-pressure">
+             <p class="col-text">Pressure</p>
+            <i class="fa-solid fa-gauge"></i>
+            <div>
+              <p class="pressure">_ _ hPa</p>
+             
             </div>
           </div>
         </div>
