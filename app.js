@@ -6,6 +6,7 @@ const iconBaseUrl = "https://openweathermap.org/img/wn/";
 const DOM_ELEMENTS = {
   cityName: document.querySelector(".city"),
   temperature: document.querySelector(".temp"),
+  description: document.querySelector(".description"),
   humidity: document.querySelector(".humidity"),
   wind: document.querySelector(".wind"),
   pressure: document.querySelector(".pressure"),
@@ -37,6 +38,7 @@ function updateWeatherInfo(data) {
   //?  Update weather details
   DOM_ELEMENTS.cityName.innerHTML = data.name;
   DOM_ELEMENTS.temperature.innerHTML = `${Math.round(data.main.temp)}°`;
+   DOM_ELEMENTS.description.innerHTML = `${data.weather[0].description}`;
   DOM_ELEMENTS.humidity.innerHTML = `${data.main.humidity}%`;
   DOM_ELEMENTS.wind.innerHTML = `${Math.round(data.wind.speed)} km/h`;
    DOM_ELEMENTS.pressure.innerHTML = `${data.main.pressure} hPa`;
