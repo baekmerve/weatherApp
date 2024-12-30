@@ -1,7 +1,7 @@
 // const BASE_URL =
 //   "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-  const BASE_URL = "/.netlify/functions/getWeather";
+const BASE_URL = "/.netlify/functions/getWeather";
 
 const iconBaseUrl = "https://openweathermap.org/img/wn/";
 

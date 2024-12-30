@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "netlify-cli": "^17.38.1"
+  },
+  "scripts": {
+    "netlify-dev": "netlify dev",
+    "netlify-login": "netlify login"
+  }
+}
