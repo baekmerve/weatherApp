@@ -78,7 +78,7 @@ function updateBackground(weatherCondition) {
   }
 }
 
-//? event listener for click (search) event
+//? event listener for the search button click
 DOM_ELEMENTS.searchButton.addEventListener("click", () => {
   const city = DOM_ELEMENTS.searchBox.value.trim();
 
@@ -86,5 +86,18 @@ DOM_ELEMENTS.searchButton.addEventListener("click", () => {
     checkWeather(city);
   } else {
     alert("Please enter a city name.");
+  }
+});
+
+//? event listener for pressing the Enter key in the search box
+DOM_ELEMENTS.searchBox.addEventListener("keypress", (event) => {
+  // first check if the key pressed is Enter
+  if (event.key === "Enter") {
+    const city = DOM_ELEMENTS.searchBox.value.trim();
+    if (city) {
+      checkWeather(city);
+    } else {
+      alert("Please enter a city name.");
+    }
   }
 });
