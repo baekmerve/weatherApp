@@ -6,7 +6,8 @@ const iconBaseUrl = "https://openweathermap.org/img/wn/";
 const DOM_ELEMENTS = {
   cityName: document.querySelector(".city"),
   temperature: document.querySelector(".temp"),
-  description: document.querySelector(".description"),
+  feelsLike: document.querySelector(".feelsLike"),
+
   humidity: document.querySelector(".humidity"),
   wind: document.querySelector(".wind"),
   pressure: document.querySelector(".pressure"),
@@ -15,12 +16,14 @@ const DOM_ELEMENTS = {
   weatherIcon: document.querySelector(".weather-icon"),
   errorMessage: document.querySelector(".error"),
   weather: document.querySelector(".weather"),
+  body: document.querySelector(".card"),
 };
 
+//function for: checkWeather
 async function checkWeather(city) {
   try {
     const response = await fetch(`${BASE_URL}${city}&appid=${API_KEY}`);
-    // if the city if not valid, show the error on the screen
+    //! if the city if not valid, show the error on the screen
     if (response.status === 404) {
       DOM_ELEMENTS.errorMessage.style.display = "block";
       DOM_ELEMENTS.weather.style.display = "none";
@@ -33,30 +36,45 @@ async function checkWeather(city) {
     console.log(error);
   }
 }
-
+//function for: updateWeatherInfo
 function updateWeatherInfo(data) {
   //?  Update weather details
   DOM_ELEMENTS.cityName.innerHTML = data.name;
   DOM_ELEMENTS.temperature.innerHTML = `${Math.round(data.main.temp)}°`;
-   DOM_ELEMENTS.description.innerHTML = `${data.weather[0].description}`;
+  DOM_ELEMENTS.feelsLike.innerHTML = `feels like ${Math.ceil(data.main.feels_like)}°C`;
   DOM_ELEMENTS.humidity.innerHTML = `${data.main.humidity}%`;
   DOM_ELEMENTS.wind.innerHTML = `${Math.round(data.wind.speed)} km/h`;
-   DOM_ELEMENTS.pressure.innerHTML = `${data.main.pressure} hPa`;
+  DOM_ELEMENTS.pressure.innerHTML = `${data.main.pressure} hPa`;
   const iconCode = data.weather[0].icon;
+  const weatherCondition = data.weather[0].main;
 
   //? Update weather icon
-  if (data.weather[0].main === "Clouds") {
-    DOM_ELEMENTS.weatherIcon.innerHTML = '<img src="images/clouds.png"></img>';
-  } else if (data.weather[0].main === "Clear") {
-    DOM_ELEMENTS.weatherIcon.innerHTML = '<img src="images/clear.png"></img>';
-  } else if (data.weather[0].main === "Rain") {
-    DOM_ELEMENTS.weatherIcon.innerHTML = '<img src="images/rain.png"></img>';
-  } else if (data.weather[0].main === "Drizzle") {
-    DOM_ELEMENTS.weatherIcon.innerHTML = '<img src="images/drizzle.png"></img>';
-  } else if (data.weather[0].main === "Mist") {
-    DOM_ELEMENTS.weatherIcon.innerHTML = '<img src="images/mist.png"></img>';
-  } else {
-    DOM_ELEMENTS.weatherIcon.innerHTML = `<img src="${iconBaseUrl}${iconCode}@2x.png" alt="${data.weather[0].description}">`;
+  DOM_ELEMENTS.weatherIcon.innerHTML = `<img src="${iconBaseUrl}${iconCode}@2x.png" alt="${data.weather[0].description}">`;
+
+  updateBackground(weatherCondition);
+}
+
+//function for: Update bg color depends on weatherCondition
+function updateBackground(weatherCondition) {
+  switch (weatherCondition) {
+    case "Clear":
+      DOM_ELEMENTS.body.style.backgroundColor = "#87CEEB"; // Sky blue
+      break;
+    case "Clouds":
+      DOM_ELEMENTS.body.style.backgroundColor = "#B0C4DE"; // Light steel blue
+      break;
+    case "Rain":
+      DOM_ELEMENTS.body.style.backgroundColor = "#708090"; // Slate gray
+      break;
+    case "Snow":
+      DOM_ELEMENTS.body.style.backgroundColor = "#F0F8FF"; // Alice blue
+      break;
+    case "Mist":
+      DOM_ELEMENTS.body.style.backgroundColor = "#BDC3C7"; // Light gray
+      break;
+    case "Wind":
+      DOM_ELEMENTS.body.style.backgroundColor = "#5DADE2"; // Light blue
+      break;
   }
 }
 
