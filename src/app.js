@@ -1,7 +1,5 @@
-// const BASE_URL =
-//   "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-
-const BASE_URL = "/.netlify/functions/getWeather";
+const BASE_URL =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
 const iconBaseUrl = "https://openweathermap.org/img/wn/";
 
@@ -23,43 +21,31 @@ const DOM_ELEMENTS = {
 };
 
 //function for: checkWeather
-// async function checkWeather(city) {
-//   try {
-//     const response = await fetch(`${BASE_URL}${city}&appid=${API_KEY}`);
-//     //? if the city if not valid, show the error on the screen
-//     if (response.status === 404) {
-//       DOM_ELEMENTS.errorMessage.style.display = "block";
-//       DOM_ELEMENTS.weather.style.display = "none";
-//     } else {
-//       const data = await response.json();
-//       console.log(data);
-//       updateWeatherInfo(data);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 async function checkWeather(city) {
   try {
-    const response = await fetch(`${BASE_URL}?city=${city}`);
-    if (!response.ok) throw new Error("City not found");
-
-    const data = await response.json();
-    updateWeatherInfo(data);
+    const response = await fetch(`${BASE_URL}${city}&appid=${API_KEY}`);
+    //? if the city if not valid, show the error on the screen
+    if (response.status === 404) {
+      DOM_ELEMENTS.errorMessage.style.display = "block";
+      DOM_ELEMENTS.weather.style.display = "none";
+    } else {
+      const data = await response.json();
+      console.log(data);
+      updateWeatherInfo(data);
+    }
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
-
-
 
 //function for: updateWeatherInfo
 function updateWeatherInfo(data) {
   //?  Update weather details
   DOM_ELEMENTS.cityName.innerHTML = data.name;
   DOM_ELEMENTS.temperature.innerHTML = `${Math.round(data.main.temp)}°`;
-  DOM_ELEMENTS.feelsLike.innerHTML = `feels like ${Math.ceil(data.main.feels_like)}°C`;
+  DOM_ELEMENTS.feelsLike.innerHTML = `feels like ${Math.ceil(
+    data.main.feels_like
+  )}°C`;
   DOM_ELEMENTS.humidity.innerHTML = `${data.main.humidity}%`;
   DOM_ELEMENTS.wind.innerHTML = `${Math.round(data.wind.speed)} km/h`;
   DOM_ELEMENTS.pressure.innerHTML = `${data.main.pressure} hPa`;
