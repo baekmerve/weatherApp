@@ -1,5 +1,8 @@
-const BASE_URL =
-  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+// const BASE_URL =
+//   "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+  const BASE_URL = "/.netlify/functions/getWeather";
+
 const iconBaseUrl = "https://openweathermap.org/img/wn/";
 
 //? DOM_ELEMENTS
@@ -20,22 +23,37 @@ const DOM_ELEMENTS = {
 };
 
 //function for: checkWeather
+// async function checkWeather(city) {
+//   try {
+//     const response = await fetch(`${BASE_URL}${city}&appid=${API_KEY}`);
+//     //? if the city if not valid, show the error on the screen
+//     if (response.status === 404) {
+//       DOM_ELEMENTS.errorMessage.style.display = "block";
+//       DOM_ELEMENTS.weather.style.display = "none";
+//     } else {
+//       const data = await response.json();
+//       console.log(data);
+//       updateWeatherInfo(data);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
 async function checkWeather(city) {
   try {
-    const response = await fetch(`${BASE_URL}${city}&appid=${API_KEY}`);
-    //! if the city if not valid, show the error on the screen
-    if (response.status === 404) {
-      DOM_ELEMENTS.errorMessage.style.display = "block";
-      DOM_ELEMENTS.weather.style.display = "none";
-    } else {
-      const data = await response.json();
-      console.log(data);
-      updateWeatherInfo(data);
-    }
+    const response = await fetch(`${BASE_URL}?city=${city}`);
+    if (!response.ok) throw new Error("City not found");
+
+    const data = await response.json();
+    updateWeatherInfo(data);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
+
+
+
 //function for: updateWeatherInfo
 function updateWeatherInfo(data) {
   //?  Update weather details
